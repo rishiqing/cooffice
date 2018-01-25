@@ -1,0 +1,1 @@
+docker run -i -t -d -p 8124:80 -v D:\\logs:/var/log/onlyoffice registry.cn-shenzhen.aliyuncs.com/cbwfree/onlyoffice
