@@ -1,0 +1,49 @@
+{
+  "log": {
+    "filePath": "../../Common/config/log4js/development.json"
+  },
+  "storage": {
+    "fs": {
+      "folderPath": "../../App_Data"
+    }
+  },
+  "services": {
+    "CoAuthoring": {
+      "server": {
+        "port": 8001,
+        "sockjsUrl": "/web-apps/vendor/sockjs/sockjs.min.js",
+        "editor_settings_spellchecker_url": "http://192.168.0.116:8001",
+        "static_content": {
+          "/sdkjs": {
+            "path": "../../../sdkjs"
+          },
+          "/web-apps": {
+            "path": "../../../web-apps"
+          },
+          "/web-apps-pro": {
+            "path": "../../../web-apps-pro"
+          },
+          "/sdkjs-plugins": {
+            "path": "../../../sdkjs-plugins"
+          }
+        }
+      },
+      "utils": {
+        "utils_common_fontdir": "C:\\Windows\\Fonts"
+      }
+    }
+  },
+  "license": {
+    "license_file": "./../../license.lic"
+  },
+  "FileConverter": {
+    "converter": {
+      "fontDir": "",
+      "presentationThemesDir": "../../../sdkjs/slide/themes",
+      "x2tPath": "../../FileConverter/Bin/x2t.exe",
+      "docbuilderPath": "../../FileConverter/Bin/docbuilder.exe",
+      "docbuilderAllFontsPath": "../../App_Data/docbuilder/AllFonts.js",
+      "errorfiles": "error"
+    }
+  }
+}
