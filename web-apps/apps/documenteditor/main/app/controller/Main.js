@@ -787,8 +787,22 @@ define([
                 value = Common.localStorage.getItem("de-show-tableline");
                 me.api.put_ShowTableEmptyLine((value!==null) ? eval(value) : true);
 
+                // 添加speckcheck配置项
                 value = Common.localStorage.getItem("de-settings-spellcheck");
-                me.api.asc_setSpellCheck(value===null || parseInt(value) == 1);
+                if (value === null ) {
+                    // 初始化时，使用默认配置
+                    var isCheck = 0;
+                    if (this.appOptions.customization && this.appOptions.customization.spellcheck) {
+                        isCheck = 1;
+                    }
+                    me.api.asc_setSpellCheck(isCheck == 1);
+                    Common.localStorage.setItem("de-settings-spellcheck", isCheck);
+                } else {
+                    // 非初始化时，使用localStorage中的配置
+                    me.api.asc_setSpellCheck(parseInt(value) == 1);
+                }
+                // me.api.asc_setSpellCheck(value===null || parseInt(value) == 1);
+
 
                 Common.localStorage.setItem("de-settings-showsnaplines", me.api.get_ShowSnapLines() ? 1 : 0);
 
