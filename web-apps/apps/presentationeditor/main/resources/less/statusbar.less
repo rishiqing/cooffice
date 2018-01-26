@@ -1,0 +1,221 @@
+.statusbar {
+    display: table;
+    padding: 2px;
+    height: 25px;
+    background-color: @gray-light;
+    .box-inner-shadow(0 1px 0 @gray-dark);
+
+    .status-label {
+        font-weight: bold;
+        color: @gray-deep;
+        white-space: nowrap;
+        position: relative;
+        top: 1px;
+    }
+
+    #status-label-pages, #status-label-zoom {
+        cursor: pointer;
+    }
+
+    #status-label-pages, #status-label-action {
+        margin-top: 2px;
+    }
+
+    #status-users-icon, #status-users-count {
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    #status-users-icon {
+        background-repeat: no-repeat;
+        background-position: -14px -197px;
+        width: 20px;
+        height: 20px;
+        vertical-align: middle;
+    }
+
+    #status-label-zoom {
+        text-align: center;
+    }
+
+    #btn-zoom-topage {
+        .btn-tpl(-1160px);
+        margin-right: 9px;
+        margin-left: 6px;
+    }
+
+    #btn-zoom-towidth {
+        .btn-tpl(-1180px);
+        margin-right: 9px;
+    }
+
+    #btn-zoom-down {
+        .btn-tpl(-1200px);
+    }
+
+    #btn-zoom-up {
+        .btn-tpl(-1220px);
+    }
+
+    // #btn-doc-lang {
+    //     .btn-tpl(-1500px);
+    //     margin-right: 9px;
+    // }
+
+    #btn-doc-spell {
+        .btn-tpl(-1520px);
+        margin-right: 5px;
+    }
+
+    #status-btn-preview {
+        .btn-tpl(-160px);
+    }
+
+    .status-group {
+        display: table-cell;
+        white-space: nowrap;
+        vertical-align: top;
+        padding-top: 3px;
+        &.dropup {
+            position: static;
+        }
+    }
+
+    .separator {
+        margin: -2px 3px 0 4px;
+
+        &.short {
+            height: 25px;
+        }
+    }
+
+    .cnt-lang {
+        display: inline-block;
+        cursor: pointer;
+        color: #000;
+        margin-left: 6px;
+
+        .dropdown-toggle > .icon-lang-flag {
+            position: relative;
+            top: 3px;
+            margin-left: 3px;
+            margin-right: 2px;
+            display: inline-block;
+        }
+
+        .caret.up {
+            background-position: @arrow-up-small-offset-x @arrow-up-small-offset-y;
+
+            border: none;
+            width: 7px;
+            height: 7px;
+        }
+
+        label {
+            cursor: pointer;
+        }
+
+        .dropdown-menu {
+            li .lang-item-icon {
+                display: inline-block;
+                vertical-align: text-bottom;
+                margin: 1px 5px 0 2px;
+            }
+        }
+
+        &.disabled {
+            cursor: default;
+            label, .icon-lang-flag {
+                cursor: default;
+                opacity: 0.4;
+            }
+        }
+    }
+
+    .cnt-zoom {
+        display: inline-block;
+
+        .dropdown-menu {
+            min-width: 80px;
+            margin-left: -4px;
+
+            li {
+                text-align: center;
+
+                > a {
+                    padding-left: 15px;
+                    padding-right: 15px;
+                }
+            }
+        }
+    }
+
+    #status-goto-box {
+        padding: 10px;
+        margin-left: 40px;
+        margin-bottom: 2px;
+        min-width: 130px;
+
+        > label {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        > input[type=text] {
+            width: 50px;
+            display: inline-block;
+        }
+    }
+    
+    #status-users-menu {
+        padding: 14px 0 14px 14px;
+        margin-left: 142px;
+        margin-bottom: 2px;
+        width: 285px;
+        font-size: 12px;
+
+        > label {
+            white-space: normal;
+        }
+
+        #status-users-list {
+            margin-top: 15px;
+
+            ul {
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                max-height: 190px;
+                position: relative;
+
+                li {
+                    list-style: none;
+                    padding: 2px 0;
+                    margin-right: 15px;
+                    overflow: hidden;
+
+                    &.offline, &.viewmode {
+                        display: none;
+                    }
+                }
+            }
+
+            .color {
+                width: 12px;
+                height: 12px;
+                display: inline-block;
+                vertical-align: middle;
+                border: 1px solid @gray-dark;
+            }
+
+            .name {
+                display: block;
+                padding-left: 16px;
+                margin-top: -3px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                vertical-align: middle;
+            }
+        }
+    }
+}
