@@ -38,9 +38,7 @@ var editor;
  * @param {undefined} undefined
  */
   function(window, undefined) {
-  window.console.log('****>>>><<<<****----');
   var asc = window["Asc"];
-  window.console.log('****>>>><<<<****----' + asc);
   var prot;
 
   var c_oAscAdvancedOptionsAction = AscCommon.c_oAscAdvancedOptionsAction;
@@ -917,7 +915,6 @@ var editor;
   };
 
   spreadsheet_api.prototype._loadFonts = function(fonts, callback) {
-    window.console.log('****>>>>fonts: ' + JSON.stringify(fonts));
     if (window["NATIVE_EDITOR_ENJINE"]) {
       return callback();
     }

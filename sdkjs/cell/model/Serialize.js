@@ -5208,31 +5208,6 @@
                 res = this.bcr.Read1(length, function (t, l) {
                     return oThis.ReadFonts(t, l, oStyleObject.aFonts);
                 });
-
-                // ---------------------------------------------
-                // by Wallace Mao, 临时修复中文问题，将默认的语言设置成中文
-                // window.console.log('**>>oStyleObject.aFonts: ' + JSON.stringify(oStyleObject.aFonts));
-                // var color = new OpenColor();
-                // color.rgb = 0;
-                // color.theme = 1;
-                // color.tint = null;
-                // var oNewFont = new AscCommonExcel.Font();
-                // oNewFont.fn = "宋体";
-                // oNewFont.scheme = null;
-                // oNewFont.fs = 11;
-                // oNewFont.b = null;
-                // oNewFont.i = null;
-                // oNewFont.u = null;
-                // oNewFont.s = null;
-                // oNewFont.c = AscCommonExcel.g_oColorManager.getThemeColor(color.theme, color.tint);;
-                // oNewFont.va = null;
-                // oNewFont.skip = null;
-                // oNewFont.repeat = null;
-                // oStyleObject.aFonts.unshift(oNewFont);
-
-                // oStyleObject.aFonts = [];
-                // oStyleObject.aFonts.push(oNewFont);
-                // --------------------------------------------
             } else if (c_oSerStylesTypes.NumFmts === type) {
                 res = this.bcr.Read1(length, function (t, l) {
                     return oThis.ReadNumFmts(t, l, oStyleObject.oNumFmts);
