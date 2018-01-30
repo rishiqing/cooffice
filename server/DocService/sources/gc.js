@@ -33,7 +33,7 @@
 'use strict';
 
 process.env.NODE_ENV = 'development-windows';
-process.env.NODE_CONFIG_DIR = 'D:\\workspace\\node_space\\DocumentServer\\server\\Common\\config';
+process.env.NODE_CONFIG_DIR = '../../Common/config';
 
 var config = require('config').get('services.CoAuthoring');
 var co = require('co');

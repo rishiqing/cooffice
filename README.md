@@ -1,4 +1,4 @@
-# 基本结构
+# 1 基本结构
 
 - server: nodeJs后台，文档协作的主web服务，用于连接数据库、redis、rabbitmq等。
 - sdkjs: 前端项目，负责读写与后台交互的文档输入输出流，提供了可供editor便捷调用的api接口。
@@ -7,7 +7,7 @@
 
 note: 以上工程为前端和集成的工程。在具体开发使用过程中需要先搭建并启动document server服务。
 
-# 安装步骤
+# 2 安装步骤
 
 ## 搭建document server服务
 centOS参考：[document server for centOS](http://helpcenter.onlyoffice.com/server/linux/document/linux-installation-centos.aspx)
@@ -23,7 +23,7 @@ centOS参考：[document server for centOS](http://helpcenter.onlyoffice.com/ser
 `cd web-apps/build && npm install`  
 `cd editor-server && npm install`
 
-# 开发步骤
+# 3 开发步骤
 ## 修改document server中nginx的配置，反向代理到本地开发机器
 `vim /etc/nginx/conf.d/onlyoffice-documentserver.conf`  
 示例：  
@@ -51,7 +51,7 @@ centOS参考：[document server for centOS](http://helpcenter.onlyoffice.com/ser
 ## 浏览器访问
 浏览器打开： `http://[local_ip]:3000`访问editor-server
 
-# 打包及部署步骤
+# 4 打包及部署步骤
 ## grunt compile frontend source code
 `cd sdkjs/build && grunt --level=ADVANCED`  
 等待sdkjs编译结束后，执行  
@@ -78,7 +78,7 @@ document server中，修改目录权限
 - redis路径
 - rabbitmq路径
 
-# 配置文件
+# 5 配置文件
 ## server config
 path: `server/Common/config`  
 一般需要修改rabbitmq/redis等配置
@@ -99,8 +99,16 @@ grunt构建配置，一般需要修改version版本号
 path: `editor-server/config`
 需要修改`siteUrl`为document server的访问路径  
 
-# 常见问题
+# 6 常见问题
 ## build版本问题
+web-apps/build/common.json  
+web-apps/build/documenteditor.json  
+web-apps/build/presentationeditor.json  
+web-apps/build/spreadsheeteditor.json  
+以上配置文件中`version`字段需要与DocumentSever的后台version版本一致，例如`5.0.6`
+
 ## 密钥问题
+`cd server/DocService/sources && node rsqLicense.js`  
+生成密钥文件
 
 powered by [onlyoffice](https://www.onlyoffice.com/)
