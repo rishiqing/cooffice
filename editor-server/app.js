@@ -315,9 +315,6 @@ app.delete("/file", function (req, res) {
 
 app.post("/track", function (req, res) {
 
-    console.log('*************req.query: ' + JSON.stringify(req.query));
-    console.log('*************req.body: ' + JSON.stringify(req.body));
-
     docManager.init(__dirname, req, res);
 
     var userAddress = req.query.useraddress;
@@ -330,13 +327,9 @@ app.post("/track", function (req, res) {
             var curExt = fileUtility.getFileExtension(fileName);
             var downloadExt = fileUtility.getFileExtension(downloadUri);
 
-            console.log('**curExt: ' + curExt);
-            console.log('**downloadExt: ' + downloadExt);
-            console.log('**downloadUri: ' + downloadUri);
             if (downloadExt != curExt) {
-                console.log('*******************');
                 var key = documentService.generateRevisionId(downloadUri);
-                console.log('**key: ' + key);
+
                 try {
                     documentService.getConvertedUriSync(downloadUri, downloadExt, curExt, key, function (dUri) {
                         processSave(dUri, body, fileName, userAddress, resp)
@@ -345,7 +338,6 @@ app.post("/track", function (req, res) {
                 } catch (ex) {
                     console.log(ex);
                     fileName = docManager.getCorrectName(fileUtility.getFileName(fileName, true) + downloadExt, userAddress)
-                    console.log('**fileName: ' + fileName);
                 }
             }
 
@@ -366,7 +358,6 @@ app.post("/track", function (req, res) {
                     docManager.createDirectory(versionPath);
 
                     var downloadZip = body.changesurl;
-                    console.log('**body.changesurl: ' + body.changesurl);
                     if (downloadZip) {
                         var path_changes = docManager.diffPath(fileName, userAddress, version);
                         var diffZip = syncRequest("GET", downloadZip);
@@ -515,7 +506,6 @@ app.get("/editor", function (req, res) {
         var lang = docManager.getLang();
         var userid = req.query.userid ? req.query.userid : "uid-1";
         var name = req.query.name ? req.query.name : "Jonn Smith";
-
         if (fileExt != null) {
             var fileName = docManager.createDemo((req.query.sample ? "sample." : "new.") + fileExt, userid, name);
 
@@ -525,12 +515,14 @@ app.get("/editor", function (req, res) {
         }
 
         var userAddress = docManager.curUserHostAddress();
-        var fileName = fileUtility.getFileName(req.query.fileName);
-        var key = docManager.getKey(fileName);
-        var url = docManager.getFileUri(fileName);
-        console.log('****url: ' + url);
-        var mode = req.query.mode || "edit"; //mode: view/edit 
-        var type = req.query.type || ""; //type: embedded/mobile/desktop
+        // var fileName = fileUtility.getFileName(req.query.fileName);
+        var fileName = req.query.fileName;
+        var showName = req.query.showName;
+        // var key = docManager.getKey(userid);
+        var key = req.query.key || new Date().getTime();
+        var url = docManager.getFileUri(userid, fileName);
+        var mode = req.query.mode || "edit"; //mode: view/edit/review/comment/embedded
+        var type = req.query.type == "desktop" ? "desktop" : "mobile"; //type: embedded/mobile/desktop
         if (type == "") {
                 type = new RegExp(configServer.get("mobileRegEx"), "i").test(req.get('User-Agent')) ? "mobile" : "desktop";
             }
@@ -560,14 +552,15 @@ app.get("/editor", function (req, res) {
                     key: keyVersion,
                     url: i == countVersion ? url : (docManager.getlocalFileUri(fileName, i, true) + "/prev" + fileUtility.getFileExtension(fileName)),
                 };
-                if (i > 1) {
+
+                if (i > 1 && docManager.existsSync(docManager.diffPath(fileName, userAddress, i-1))) {
                     historyD.previous = {
                         key: historyData[i-2].key,
                         url: historyData[i-2].url,
-                        
                     };
                     historyD.changesUrl = docManager.getlocalFileUri(fileName, i-1) + "/diff.zip";
                 }
+
                 historyData.push(historyD);
                 
                 if (i < countVersion) {
@@ -593,7 +586,7 @@ app.get("/editor", function (req, res) {
         var argss = {
             apiUrl: siteUrl + configServer.get('apiUrl'),
             file: {
-                name: fileName,
+                name: showName,
                 ext: fileUtility.getFileExtension(fileName, true),
                 uri: url,
                 version: countVersion,
@@ -604,11 +597,11 @@ app.get("/editor", function (req, res) {
                 documentType: fileUtility.getFileType(fileName),
                 key: key,
                 token: "",
-                callbackUrl: docManager.getCallback(fileName),
-                isEdit: canEdit && mode == "edit",
+                callbackUrl: docManager.getCallback(userid, fileName),
+                isEdit: true,
                 review: mode == "edit" || mode == "review",
-                comment: mode == "edit" || mode == "comment",
-                mode: canEdit && mode != "view" ? "edit" : "view",
+                comment: mode != "view" && mode != "embedded",
+                mode: "edit",
                 canBackToFolder: type != "embedded",
                 backUrl: docManager.getServerUrl(),
                 curUserHostAddress: docManager.curUserHostAddress(),
