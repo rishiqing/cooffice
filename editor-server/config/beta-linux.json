@@ -1,0 +1,9 @@
+﻿{
+  "server": {
+    "port": 3200,
+    "siteUrl": "https://beta-cooffice.rishiqing.com/",	
+    "baseUrl": "https://beta.rishiqing.com/task",
+    "apiUrl": "web-apps/apps/api/documents/api.js",
+    "preloaderUrl": "web-apps/apps/api/documents/cache-scripts.html"
+  }
+}
