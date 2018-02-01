@@ -646,6 +646,7 @@ define([
                 me.appOptions.isEdit         = (me.appOptions.canLicense || me.appOptions.isEditDiagram || me.appOptions.isEditMailMerge) && me.permissions.edit !== false && me.editorConfig.mode !== 'view';
                 me.appOptions.canDownload    = !me.appOptions.nativeApp && (me.permissions.download !== false);
                 me.appOptions.canPrint       = (me.permissions.print !== false);
+                me.appOptions.canDelete      = me.permissions.delete;
 
                 me.applyModeCommonElements();
                 me.applyModeEditorElements();
