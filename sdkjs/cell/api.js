@@ -772,7 +772,8 @@ var editor;
           var url = input["data"];
           if (url) {
             error = c_oAscError.ID.No;
-            t.processSavedFile(url, options.downloadType);
+            // t.processSavedFile(url, options.downloadType);
+            t.sendEvent('download_url', url);
           }
         } else {
           error = mapAscServerErrorToAscError(parseInt(input["data"]), AscCommon.c_oAscAdvancedOptionsAction.Save);

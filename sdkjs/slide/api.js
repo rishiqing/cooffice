@@ -6544,7 +6544,8 @@ background-repeat: no-repeat;\
 					if (url)
 					{
 						error = c_oAscError.ID.No;
-						t.processSavedFile(url, options.downloadType);
+						// t.processSavedFile(url, options.downloadType);
+						t.sendEvent('download_url', url);
 					}
 				}
 				else

@@ -53,9 +53,12 @@ define([
         var _isEdit = false,
             _canEdit = false,
             _canDownload = false,
+            _canDelete = false,
             _canDownloadOrigin = false,
             _canReader = false,
-            _canAbout = true;
+            _canAbout = true,
+            _shareUrl,
+            _deleteUrl;
 
         return {
             // el: '.view-main',
@@ -69,6 +72,7 @@ define([
             initialize: function() {
                 Common.NotificationCenter.on('settingscontainer:show', _.bind(this.initEvents, this));
                 Common.Gateway.on('opendocument', _.bind(this.loadDocument, this));
+                Common.Gateway.on('init', _.bind(this.loadConfig, this));
                 this.on('page:show', _.bind(this.updateItemHandlers, this));
             },
 
@@ -96,6 +100,7 @@ define([
                 _canDownload = mode.canDownload;
                 _canDownloadOrigin = mode.canDownloadOrigin;
                 _canReader = !mode.isEdit && mode.canReader;
+                _canDelete = mode.canDelete;
 
                 if (mode.customization && mode.canBrandingExt) {
                     _canAbout = (mode.customization.about!==false);
@@ -120,6 +125,7 @@ define([
                         $layour.find('#settings-readermode input:checkbox')
                             .prop('checked', Common.SharedSettings.get('readerMode'));
                     }
+                    if (!_canDelete) $layour.find('#settings-document-delete').hide();
                     if (!_canDownload) $layour.find('#settings-download-as').hide();
                     if (!_canDownloadOrigin) $layour.find('#settings-download').hide();
                     if (!_canAbout) $layour.find('#settings-about').hide();
@@ -143,6 +149,8 @@ define([
                 }).join(', ');
 
                 $(selectorsDynamicPage).single('click', _.bind(this.onItemClick, this));
+                $('#settings-document-share').single('click', _.bind(this.onShare, this));
+                $('#settings-document-delete').single('click', _.bind(this.onDelete, this));
             },
 
             showPage: function(templateId, suspendEvent) {
@@ -164,6 +172,22 @@ define([
                         this.fireEvent('page:show', [this, templateId]);
                     }
                 }
+            },
+            loadConfig: function (data) {
+                if (data && data.config && data.config.customization && data.config.customization.share && data.config.customization.share.url) {
+                    _shareUrl = data.config.customization.share.url;
+                }
+
+                if (data && data.config && data.config.customization && data.config.customization.delete && data.config.customization.delete.url) {
+                    _deleteUrl = data.config.customization.delete.url;
+                }
+            },
+
+            onShare: function () {
+                window.parent.location.href = _shareUrl;
+            },
+            onDelete: function () {
+                window.parent.location.href = _deleteUrl;
             },
 
             onItemClick: function (e) {
@@ -226,6 +250,8 @@ define([
             textReader: 'Reader Mode',
             textDownload: 'Download',
             textDocInfo: 'Document Info',
+            textShare: 'Share',
+            textDelete: 'Delete',
             textHelp: 'Help',
             textAbout: 'About',
             textBack: 'Back',

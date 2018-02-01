@@ -16,7 +16,8 @@
         "comment": <%- editor.comment %>,
         "download": true,
         "edit": <%- editor.isEdit %>,
-        "review": <%- editor.review %>
+        "review": <%- editor.review %>,
+        "delete": <%- editor.canDelete %>
     }
 },
 "editorConfig": {
@@ -42,6 +43,12 @@
         "forcesave": true,
         "goback": {
             "url": "<%- editor.backUrl %>"
+        },
+        "share": {
+            "url": "<%- editor.shareUrl %>"
+        },
+        "delete": {
+            "url": "<%- editor.deleteUrl %>"
         }
     },
     "fileChoiceUrl": "<%- editor.fileChoiceUrl %>",

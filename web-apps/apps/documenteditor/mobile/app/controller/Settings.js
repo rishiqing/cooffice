@@ -113,6 +113,7 @@ define([
             },
 
             setMode: function (mode) {
+                mode.canDelete = this.api.DocInfo.Permissions.delete;
                 this.getView('Settings').setMode(mode);
                 if (mode.canBranding)
                     _licInfo = mode.customization;
@@ -120,7 +121,7 @@ define([
 
             initEvents: function () {
             },
-
+            
             rootView : function() {
                 return rootView;
             },

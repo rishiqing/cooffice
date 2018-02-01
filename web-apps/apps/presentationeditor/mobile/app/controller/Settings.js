@@ -72,7 +72,7 @@ define([
             initialize: function () {
                 Common.SharedSettings.set('readerMode', false);
                 Common.NotificationCenter.on('settingscontainer:show', _.bind(this.initEvents, this));
-
+                
                 this.addListeners({
                     'Settings': {
                         'page:show' : this.onPageShow
@@ -91,6 +91,7 @@ define([
             },
 
             setMode: function (mode) {
+                 mode.canDelete = this.api.DocInfo.Permissions.delete;
                 this.getView('Settings').setMode(mode);
                 if (mode.canBranding)
                     _licInfo = mode.customization;
@@ -98,7 +99,7 @@ define([
 
             initEvents: function () {
             },
-
+            
             rootView : function() {
                 return rootView;
             },

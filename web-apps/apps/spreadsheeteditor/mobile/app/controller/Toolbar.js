@@ -205,7 +205,8 @@ define([
             },
 
             deactivateEditControls: function() {
-                $('#toolbar-edit, #toolbar-add, #toolbar-settings').addClass('disabled');
+                // $('#toolbar-edit, #toolbar-add, #toolbar-settings').addClass('disabled');
+                $('#toolbar-add, #toolbar-settings').addClass('disabled');
             },
 
             onCoAuthoringDisconnect: function() {

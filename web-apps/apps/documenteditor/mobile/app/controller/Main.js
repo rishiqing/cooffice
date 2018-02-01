@@ -53,6 +53,7 @@ define([
     DE.Controllers.Main = Backbone.Controller.extend(_.extend((function() {
         var ApplyEditRights = -255;
         var LoadingDocument = -256;
+        var _downloadUrl = "https://downloadButtonClickAction";
 
         Common.localStorage.setId('text');
         Common.localStorage.setKeysFilter('de-,asc.text');
@@ -141,6 +142,7 @@ define([
                     Common.Utils.Metric.setCurrentMetric(1); //pt
 
                     me.api.asc_registerCallback('asc_onError',                      _.bind(me.onError, me));
+                    me.api.asc_registerCallback('download_url',                     _.bind(me.onDownload, me));
                     me.api.asc_registerCallback('asc_onDocumentContentReady',       _.bind(me.onDocumentContentReady, me));
                     me.api.asc_registerCallback('asc_onOpenDocumentProgress',       _.bind(me.onOpenDocument, me));
                     me.api.asc_registerCallback('asc_onDocumentUpdateVersion',      _.bind(me.onUpdateVersion, me));
@@ -895,6 +897,10 @@ define([
                 });
 
                 Common.component.Analytics.trackEvent('Internal Error', id.toString());
+            },
+            
+            onDownload: function (url) {
+                window.parent.location.href = _downloadUrl + "?downloadUrl=" + url;
             },
 
             onCoAuthoringDisconnect: function() {
