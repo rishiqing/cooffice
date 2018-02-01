@@ -60,7 +60,7 @@ define([
             // Delegated events for creating new items, and clearing completed ones.
             events: {
                 "click #toolbar-search"     : "searchToggle",
-                "click #toolbar-edit"       : "showEdition",
+                // "click #toolbar-edit"       : "showEdition",
                 "click #toolbar-add"        : "showInserts",
                 "click #toolbar-settings"   : "showSettings"
             },
@@ -82,9 +82,10 @@ define([
                 }));
 
                 $('.view-main .navbar').on('addClass removeClass', _.bind(me.onDisplayMainNavbar, me));
-                $('#toolbar-edit, #toolbar-add, #toolbar-settings, #toolbar-search, #document-back').addClass('disabled');
+                // $('#toolbar-edit, #toolbar-add, #toolbar-settings, #toolbar-search, #document-back').addClass('disabled');
+                $('#toolbar-add, #toolbar-settings, #toolbar-search, #document-back').addClass('disabled');
 
-                this.$btnEdit = $el.find('#toolbar-edit');
+                // this.$btnEdit = $el.find('#toolbar-edit');
                 this.$btnAdd = $el.find('#toolbar-add');
 
                 return me;
@@ -144,8 +145,8 @@ define([
                 if (!(opts.indexOf('add') < 0))
                     this.$btnAdd.toggleClass('disabled', val);
 
-                if (!(opts.indexOf('edit') < 0))
-                    this.$btnEdit.toggleClass('disabled', val);
+                // if (!(opts.indexOf('edit') < 0))
+                //     this.$btnEdit.toggleClass('disabled', val);
             },
 
             textBack: 'Back'

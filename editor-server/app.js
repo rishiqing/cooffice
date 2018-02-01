@@ -527,7 +527,8 @@ app.get("/editor", function (req, res) {
                 type = new RegExp(configServer.get("mobileRegEx"), "i").test(req.get('User-Agent')) ? "mobile" : "desktop";
             }
 
-        var canEdit = configServer.get('editedDocs').indexOf(fileUtility.getFileExtension(fileName)) != -1;
+        var canEdit = req.query.canEdit || true;
+        var canDelete = req.query.canDelete || false;
 
         var countVersion = 1;
 
@@ -598,12 +599,15 @@ app.get("/editor", function (req, res) {
                 key: key,
                 token: "",
                 callbackUrl: docManager.getCallback(userid, fileName),
-                isEdit: true,
+                isEdit: canEdit && mode == "edit",
+                canDelete: type == "mobile" && canDelete,
                 review: mode == "edit" || mode == "review",
                 comment: mode != "view" && mode != "embedded",
-                mode: "edit",
+                mode: mode,
                 canBackToFolder: type != "embedded",
-                backUrl: docManager.getServerUrl(),
+                backUrl: "https://goBackButtonClickAction",
+                shareUrl: "https://shareButtonClickAction",
+                deleteUrl: "https://deleteButtonClickAction",
                 curUserHostAddress: docManager.curUserHostAddress(),
                 lang: lang,
                 userid: userid,
@@ -614,7 +618,6 @@ app.get("/editor", function (req, res) {
             history: history,
             historyData: historyData
         };
-
         if (cfgSignatureEnable) {
             app.render('config', argss, function(err, html){
                 if (err) {
