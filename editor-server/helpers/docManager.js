@@ -142,9 +142,9 @@ docManager.getFileData = function (fileName, userAddress) {
     return ((fileSystem.readFileSync(history)).toString()).split(",");
 };
 
-docManager.getFileUri = function (userid, fileName) {
+docManager.getFileUri = function (userid, fileName, mode) {
     // return docManager.getlocalFileUri(fileName, 0, true);
-    return configServer.get("baseUrl") + "/onlyOffice/getFileUrl?" + "userId=" + userid + "&fileName=" + fileName;
+    return configServer.get("baseUrl") + "/onlyOffice/getFileUrl?" + "userId=" + userid + "&mode=" + mode + "&fileName=" + fileName;
 };
 
 docManager.getlocalFileUri = function (fileName, version, forDocumentServer) {

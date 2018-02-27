@@ -191,6 +191,14 @@ define([
             }
         },
 
+        setHeaderClass: function(isView) {
+            if (isView) { // 说明是预览模式
+                $('body').addClass('office-view-mode');
+            } else {
+                $('body').removeClass('office-view-mode');
+            }
+        },
+
         getCanBack: function() {
             return this.canBack;
         },

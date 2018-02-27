@@ -520,8 +520,8 @@ app.get("/editor", function (req, res) {
         var showName = req.query.showName;
         // var key = docManager.getKey(userid);
         var key = req.query.key || new Date().getTime();
-        var url = docManager.getFileUri(userid, fileName);
-        var mode = req.query.mode || "edit"; //mode: view/edit/review/comment/embedded
+        var mode = req.query.mode || "view"; //mode: view/edit/review/comment/embedded
+        var url = docManager.getFileUri(userid, fileName, mode);
         var type = req.query.type == "desktop" ? "desktop" : "mobile"; //type: embedded/mobile/desktop
         if (type == "") {
                 type = new RegExp(configServer.get("mobileRegEx"), "i").test(req.get('User-Agent')) ? "mobile" : "desktop";
