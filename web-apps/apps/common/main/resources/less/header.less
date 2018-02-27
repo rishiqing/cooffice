@@ -3,7 +3,6 @@
     height: @app-header-height;
     display: table;
     & > div {
-        display: table-cell;
         height: @app-header-height;
         white-space: nowrap;
         vertical-align: middle;
@@ -47,17 +46,22 @@
 
 #header-documentcaption {
     width: 100%;
-    max-width: 100px;
     overflow: hidden;
     text-overflow: ellipsis;
-    background-color: @app-header-bg-color;
-    padding: 0 7px + @app-header-height / 3;
+    background-image: @app-header-bg-color;
     cursor: default;
-
+    display: flex;
+    align-items: center;
     div {
-        display: inline-block;
-        padding: 2px 20px;
-
+        font-size: 16px;
+        color: #fff;
+        font-weight: 300;
+        margin-left: 20px;
+        opacity: 0.98;
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         &.renamed:hover {
             background-color: @app-header-bg-color-dark;
         }
@@ -65,7 +69,12 @@
 }
 body.mac.electron {
     #header-documentcaption div {
-        margin-left: 95px;
+        margin-left: 80px;
+    }
+}
+body.office-view-mode {
+    #header {
+        display: none!important;
     }
 }
 

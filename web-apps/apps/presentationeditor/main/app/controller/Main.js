@@ -277,11 +277,11 @@ define([
                 this.appOptions.canBack         = this.editorConfig.nativeApp !== true && this.appOptions.canBackToFolder === true;
                 this.appOptions.canPlugins      = false;
                 this.plugins                    = this.editorConfig.plugins;
+                this.appOptions.mode            = this.editorConfig.mode;
 
-                this.getApplication()
-                    .getController('Viewport')
-                    .getView('Common.Views.Header')
-                    .setCanBack(this.appOptions.canBackToFolder === true);
+                this.headerView = this.getApplication().getController('Viewport').getView('Common.Views.Header');
+                this.headerView.setHeaderClass(this.appOptions.mode === 'view');
+                this.headerView.setCanBack(this.appOptions.canBackToFolder === true);
 
                 if (this.editorConfig.lang)
                     this.api.asc_setLocale(this.editorConfig.lang);

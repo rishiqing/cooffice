@@ -220,7 +220,7 @@
                                 </div>
                             </a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a data-format="<%= saveas.ods %>" class="item-link no-indicator">
                                 <div class="item-content">
                                     <div class="item-media">
@@ -243,7 +243,7 @@
                                     </div>
                                 </div>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>

@@ -2380,7 +2380,8 @@ background-repeat: no-repeat;\
 					var url = input["data"];
 					if (url)
 					{
-						t.processSavedFile(url, downloadType);
+						// t.processSavedFile(url, downloadType);
+						t.sendEvent('download_url', url);
 					}
 					else
 					{
