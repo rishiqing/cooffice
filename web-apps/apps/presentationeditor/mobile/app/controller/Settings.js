@@ -72,7 +72,7 @@ define([
             initialize: function () {
                 Common.SharedSettings.set('readerMode', false);
                 Common.NotificationCenter.on('settingscontainer:show', _.bind(this.initEvents, this));
-
+                
                 this.addListeners({
                     'Settings': {
                         'page:show' : this.onPageShow
@@ -98,7 +98,7 @@ define([
 
             initEvents: function () {
             },
-
+            
             rootView : function() {
                 return rootView;
             },

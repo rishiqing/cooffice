@@ -61,6 +61,30 @@
                                 </div>
                             </a>
                         </li>
+                        <li>
+                            <a id="settings-document-share" class="item-link">
+                                <div class="item-content">
+                                    <div class="item-media">
+                                        <i class="icon icon-share"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title"><%= scope.textShare %></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a id="settings-document-delete" class="item-link">
+                                <div class="item-content">
+                                    <div class="item-media">
+                                        <i class="icon icon-delete"></i>
+                                    </div>
+                                    <div class="item-inner">
+                                        <div class="item-title"><%= scope.textDelete %></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
                         <!--<li>-->
                             <!--<a id="settings-history" class="item-link">-->
                                 <!--<div class="item-content">-->
@@ -196,7 +220,7 @@
                                 </div>
                             </a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a data-format="<%= saveas.ods %>" class="item-link no-indicator">
                                 <div class="item-content">
                                     <div class="item-media">
@@ -219,7 +243,7 @@
                                     </div>
                                 </div>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>

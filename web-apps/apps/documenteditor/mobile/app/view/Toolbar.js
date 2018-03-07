@@ -60,7 +60,7 @@ define([
             // Delegated events for creating new items, and clearing completed ones.
             events: {
                 "click #toolbar-search"     : "searchToggle",
-                "click #toolbar-edit"       : "showEdition",
+                // "click #toolbar-edit"       : "showEdition",
                 "click #toolbar-add"        : "showInserts",
                 "click #toolbar-settings"   : "showSettings"
             },
@@ -92,14 +92,16 @@ define([
                 }));
 
                 $('.view-main .navbar').on('addClass removeClass', _.bind(me.onDisplayMainNavbar, me));
-                $('#toolbar-edit, #toolbar-add, #toolbar-settings, #toolbar-search, #document-back').addClass('disabled');
+                // $('#toolbar-edit, #toolbar-add, #toolbar-settings, #toolbar-search, #document-back').addClass('disabled');
+                $('#toolbar-add, #toolbar-settings, #toolbar-search, #document-back').addClass('disabled');
 
                 return me;
             },
 
             setMode: function (mode) {
                 if (mode.isEdit) {
-                    $('#toolbar-edit, #toolbar-add, #toolbar-undo, #toolbar-redo').show();
+                    // $('#toolbar-edit, #toolbar-add, #toolbar-undo, #toolbar-redo').show();
+                    $('#toolbar-add, #toolbar-undo, #toolbar-redo').show();
                 }
             },
 

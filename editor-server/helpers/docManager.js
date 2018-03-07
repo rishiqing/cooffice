@@ -142,13 +142,12 @@ docManager.getFileData = function (fileName, userAddress) {
     return ((fileSystem.readFileSync(history)).toString()).split(",");
 };
 
-docManager.getFileUri = function (fileName) {
-    return docManager.getlocalFileUri(fileName, 0, true);
+docManager.getFileUri = function (userid, fileName, mode) {
+    // return docManager.getlocalFileUri(fileName, 0, true);
+    return configServer.get("baseUrl") + "/onlyOffice/getFileUrl?" + "userId=" + userid + "&mode=" + mode + "&fileName=" + fileName;
 };
 
 docManager.getlocalFileUri = function (fileName, version, forDocumentServer) {
-    console.log('**fileName: ' + fileName);
-    console.log('**encodeURIComponent(fileName): ' + encodeURIComponent(fileName));
     const serverPath = docManager.getServerUrl(forDocumentServer);
     const storagePath = storageFolder.length ? storageFolder + "/" : "";
     const hostAddress = docManager.curUserHostAddress();
@@ -160,15 +159,16 @@ docManager.getlocalFileUri = function (fileName, version, forDocumentServer) {
 };
 
 docManager.getServerUrl = function (forDocumentServer) {
-    return (forDocumentServer && !!configServer.get("exampleUrl")) ? configServer.get("exampleUrl") : (docManager.getProtocol() + "://" + docManager.req.get("host"));
+    return (forDocumentServer && !!configServer.get("middleUrl")) ? configServer.get("middleUrl") : (docManager.getProtocol() + "://" + docManager.req.get("host"));
 };
 
-docManager.getCallback = function (fileName) {
-    const server = docManager.getServerUrl(true);
-    const hostAddress = docManager.curUserHostAddress();
-    const handler = "/track?filename=" + encodeURIComponent(fileName) + "&useraddress=" + encodeURIComponent(hostAddress);
+docManager.getCallback = function (userid, fileName) {
+    // const server = docManager.getServerUrl(true);
+    // const hostAddress = docManager.curUserHostAddress();
+    // const handler = "/track?filename=" + encodeURIComponent(fileName) + "&useraddress=" + encodeURIComponent(hostAddress);
 
-    return server + handler;
+    // return server + handler;
+    return configServer.get("baseUrl") + "/onlyOffice/callbackDeal?" + "userId=" + userid + "&fileName=" + fileName;
 };
 
 docManager.storagePath = function (fileName, userAddress) {
@@ -246,7 +246,8 @@ docManager.getStoredFiles = function () {
             const item = {
                 time: time,
                 name: storedFiles[i],
-                documentType: fileUtility.getFileType(storedFiles[i])
+                documentType: fileUtility.getFileType(storedFiles[i]),
+                canEdit: configServer.get("editedDocs").indexOf(fileUtility.getFileExtension(storedFiles[i])) != -1
             };
 
             if (!result.length) {
@@ -293,7 +294,7 @@ docManager.getInternalExtension = function (fileType) {
     return ".docx";
 };
 
-docManager.getKey = function (fileName) {
+docManager.getKey = function (userid) {
     const userAddress = docManager.curUserHostAddress();
     let key = userAddress + docManager.getlocalFileUri(fileName);
 
@@ -315,7 +316,10 @@ docManager.getDate = function (date) {
 };
 
 docManager.getChanges = function (fileName) {
-    return JSON.parse(fileSystem.readFileSync(fileName));
+    if (this.existsSync(fileName)) {
+        return JSON.parse(fileSystem.readFileSync(fileName));
+    }
+    return null;
 };
 
 docManager.countVersion = function(directory) {

@@ -16,7 +16,8 @@
         "comment": <%- editor.comment %>,
         "download": true,
         "edit": <%- editor.isEdit %>,
-        "review": <%- editor.review %>
+        "review": <%- editor.review %>,
+        "delete": <%- editor.canDelete %>
     }
 },
 "editorConfig": {
@@ -34,14 +35,20 @@
         "toolbarDocked": "top"
     },
     "customization": {
-        "about": true,
-        "chat": true,
-        "comments": true,
+        "about": false,
+        "chat": false,
+        "comments": false,
         "feedback": true,
-        "forcesave": false,
-        "spellcheck": false,
+        "autosave": true,
+        "forcesave": true,
         "goback": {
             "url": "<%- editor.backUrl %>"
+        },
+        "share": {
+            "url": "<%- editor.shareUrl %>"
+        },
+        "delete": {
+            "url": "<%- editor.deleteUrl %>"
         }
     },
     "fileChoiceUrl": "<%- editor.fileChoiceUrl %>",

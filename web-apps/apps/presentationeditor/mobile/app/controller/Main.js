@@ -53,6 +53,7 @@ define([
     PE.Controllers.Main = Backbone.Controller.extend(_.extend((function() {
         var ApplyEditRights = -255;
         var LoadingDocument = -256;
+        var _downloadUrl = "https://downloadButtonClickAction";
 
         Common.localStorage.setId('presentation');
         Common.localStorage.setKeysFilter('pe-,asc.presentation');
@@ -140,6 +141,7 @@ define([
                     me.api.SetThemesPath("../../../../sdkjs/slide/themes/");
 
                     me.api.asc_registerCallback('asc_onError',                      _.bind(me.onError, me));
+                    me.api.asc_registerCallback('download_url',                     _.bind(me.onDownload, me));
                     me.api.asc_registerCallback('asc_onDocumentContentReady',       _.bind(me.onDocumentContentReady, me));
                     me.api.asc_registerCallback('asc_onOpenDocumentProgress',       _.bind(me.onOpenDocument, me));
                     me.api.asc_registerCallback('asc_onDocumentUpdateVersion',      _.bind(me.onUpdateVersion, me));
@@ -612,6 +614,7 @@ define([
                 me.appOptions.canChat         = me.appOptions.canLicense && !me.appOptions.isOffline && !((typeof (me.editorConfig.customization) == 'object') && me.editorConfig.customization.chat===false);
                 me.appOptions.canEditStyles   = me.appOptions.canLicense && me.appOptions.canEdit;
                 me.appOptions.canPrint        = (me.permissions.print !== false);
+                me.appOptions.canDelete       = me.permissions.delete;
 
                 var type = /^(?:(pdf|djvu|xps))$/.exec(me.document.fileType);
                 me.appOptions.canDownloadOrigin = !me.appOptions.nativeApp && me.permissions.download !== false && (type && typeof type[1] === 'string');
@@ -848,6 +851,10 @@ define([
                 });
 
                 Common.component.Analytics.trackEvent('Internal Error', id.toString());
+            },
+
+            onDownload: function (url) {
+                window.parent.location.href = _downloadUrl + "?downloadUrl=" + url;
             },
 
             onCoAuthoringDisconnect: function() {

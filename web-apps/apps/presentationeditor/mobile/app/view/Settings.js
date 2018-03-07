@@ -53,7 +53,11 @@ define([
         var isEdit,
             canEdit = false,
             canDownload = false,
-            canAbout = true;
+            canShare = false,
+            canDelete = false,
+            canAbout = true,
+            _shareUrl,
+            _deleteUrl;
 
         return {
             // el: '.view-main',
@@ -67,11 +71,13 @@ define([
             initialize: function () {
                 Common.NotificationCenter.on('settingscontainer:show', _.bind(this.initEvents, this));
                 Common.Gateway.on('opendocument', _.bind(this.loadDocument, this));
+                Common.Gateway.on('init', _.bind(this.loadConfig, this));
             },
 
             initEvents: function () {
                 var me = this;
-
+                $('#settings-document-share').single('click', _.bind(this.onShare, this));
+                $('#settings-document-delete').single('click', _.bind(this.onDelete, this));
                 $('#settings-document-info').single('click', _.bind(me.showInfo, me));
                 $('#settings-download').single('click', _.bind(me.showDownload, me));
                 $('#settings-history').single('click', _.bind(me.showHistory, me));
@@ -97,10 +103,26 @@ define([
                 isEdit = mode.isEdit;
                 canEdit = !mode.isEdit && mode.canEdit && mode.canRequestEditRights;
                 canDownload = mode.canDownload || mode.canDownloadOrigin;
+                canDelete = mode.canDelete;
 
                 if (mode.customization && mode.canBrandingExt) {
                     canAbout = (mode.customization.about!==false);
                 }
+            },
+            loadConfig: function (data) {
+                if (data && data.config && data.config.customization && data.config.customization.share && data.config.customization.share.url) {
+                    _shareUrl = data.config.customization.share.url;
+                }
+
+                if (data && data.config && data.config.customization && data.config.customization.delete && data.config.customization.delete.url) {
+                    _deleteUrl = data.config.customization.delete.url;
+                }
+            },
+            onShare: function () {
+                window.parent.location.href = _shareUrl;
+            },
+            onDelete: function () {
+                window.parent.location.href = _deleteUrl;
             },
 
             rootLayout: function () {
@@ -119,6 +141,7 @@ define([
                             .attr('checked', Common.SharedSettings.get('readerMode'))
                             .prop('checked', Common.SharedSettings.get('readerMode'));
                     }
+                    if (!canDelete) $layour.find('#settings-document-delete').hide();
                     if (!canDownload) $layour.find('#settings-download').hide();
                     if (!canAbout) $layour.find('#settings-about').hide();
 
@@ -191,6 +214,9 @@ define([
 
                     if (permissions.edit === false) {
                         $('#settings-edit-presentation').hide();
+                    } 
+                    if (permissions.delete === false) {
+                        $('#settings-document-delete').hide();
                     }
                 }
             },
@@ -203,6 +229,8 @@ define([
             textPresentSetup: 'Presentation Setup',
             textDownload: 'Download',
             textPresentInfo: 'Presentation Info',
+            textShare: 'Share',
+            textDelete: 'Delete',
             textHelp: 'Help',
             textAbout: 'About',
             textBack: 'Back',

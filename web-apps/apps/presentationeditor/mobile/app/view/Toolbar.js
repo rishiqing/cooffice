@@ -60,7 +60,7 @@ define([
             // Delegated events for creating new items, and clearing completed ones.
             events: {
                 "click #toolbar-search"     : "searchToggle",
-                "click #toolbar-edit"       : "showEdition",
+                // "click #toolbar-edit"       : "showEdition",
                 "click #toolbar-add"        : "showInserts",
                 "click #toolbar-settings"   : "showSettings",
                 "click #toolbar-preview"    : "showPreview"
@@ -93,7 +93,8 @@ define([
                 }));
 
                 $('.view-main .navbar').on('addClass removeClass', _.bind(me.onDisplayMainNavbar, me));
-                $('#toolbar-preview, #toolbar-edit, #toolbar-add, #toolbar-settings, #toolbar-search, #document-back').addClass('disabled');
+                // $('#toolbar-preview, #toolbar-edit, #toolbar-add, #toolbar-settings, #toolbar-search, #document-back').addClass('disabled');
+                $('#toolbar-preview, #toolbar-add, #toolbar-settings, #toolbar-search, #document-back').addClass('disabled');
 
                 return me;
             },

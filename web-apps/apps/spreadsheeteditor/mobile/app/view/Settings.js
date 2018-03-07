@@ -52,7 +52,10 @@ define([
         var isEdit,
             canEdit = false,
             canDownload = false,
-            canAbout = true;
+            canDelete = false,
+            canAbout = true,
+            _shareUrl,
+            _deleteUrl;
 
         return {
             // el: '.view-main',
@@ -67,11 +70,14 @@ define([
                 Common.NotificationCenter.on('settingscontainer:show', _.bind(this.initEvents, this));
 
                 Common.Gateway.on('opendocument', _.bind(this.loadDocument, this));
+                Common.Gateway.on('init', _.bind(this.loadConfig, this));
             },
 
             initEvents: function () {
                 var me = this;
 
+                $('#settings-document-share').single('click', _.bind(this.onShare, this));
+                $('#settings-document-delete').single('click', _.bind(this.onDelete, this));
                 $('#settings-document-info').single('click',    _.bind(me.showDocumentInfo, me));
                 $('#settings-download').single('click',         _.bind(me.showDownload, me));
                 $('#settings-history').single('click',          _.bind(me.showHistory, me));
@@ -79,6 +85,21 @@ define([
                 // $('#settings-about').single('click',            _.bind(me.showAbout, me));
 
                 me.initControls();
+            },
+            loadConfig: function (data) {
+                if (data && data.config && data.config.customization && data.config.customization.share && data.config.customization.share.url) {
+                    _shareUrl = data.config.customization.share.url;
+                }
+
+                if (data && data.config && data.config.customization && data.config.customization.delete && data.config.customization.delete.url) {
+                    _deleteUrl = data.config.customization.delete.url;
+                }
+            },
+            onShare: function () {
+                window.parent.location.href = _shareUrl;
+            },
+            onDelete: function () {
+                window.parent.location.href = _deleteUrl;
             },
 
             // Render layout
@@ -102,6 +123,7 @@ define([
                 isEdit = mode.isEdit;
                 canEdit = !mode.isEdit && mode.canEdit && mode.canRequestEditRights;
                 canDownload = mode.canDownload || mode.canDownloadOrigin;
+                canDelete = mode.canDelete;
 
                 if (mode.customization && mode.canBrandingExt) {
                     canAbout = (mode.customization.about!==false);
@@ -119,6 +141,7 @@ define([
                     } else {
                         if (!canEdit) $layout.find('#settings-edit-document').hide();
                     }
+                    if (!canDelete) $layout.find('#settings-document-delete').hide();
                     if (!canDownload) $layout.find('#settings-download').hide();
                     if (!canAbout) $layout.find('#settings-about').hide();
 
@@ -161,7 +184,6 @@ define([
                 $('#settings-document-autor').html(info.author ? info.author : this.unknownText);
                 $('#settings-document-date').html(info.created ? info.created : this.unknownText);
             },
-
             showDownload: function () {
                 this.showPage('#settings-download-view');
             },
@@ -198,6 +220,8 @@ define([
             textEditDoc: 'Edit Document',
             textDownload: 'Download',
             textDocInfo: 'Document Info',
+            textShare: 'Share',
+            textDelete: 'Delete',
             textHelp: 'Help',
             textAbout: 'About',
             textBack: 'Back',

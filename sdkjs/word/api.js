@@ -2380,7 +2380,8 @@ background-repeat: no-repeat;\
 					var url = input["data"];
 					if (url)
 					{
-						t.processSavedFile(url, downloadType);
+						// t.processSavedFile(url, downloadType);
+						t.sendEvent('download_url', url);
 					}
 					else
 					{
@@ -6988,7 +6989,8 @@ background-repeat: no-repeat;\
 							if (url)
 							{
 								error = c_oAscError.ID.No;
-								t.processSavedFile(url, options.downloadType);
+								// t.processSavedFile(url, options.downloadType);
+								t.sendEvent('download_url', url);
 							}
 						}
 					}

@@ -169,7 +169,7 @@ define([
                     });
 
                     $('#toolbar-add').toggleClass('disabled', slide_deleted);
-                    $('#toolbar-edit').toggleClass('disabled', slide_deleted || (objectLocked || no_object) && slide_lock );
+                    // $('#toolbar-edit').toggleClass('disabled', slide_deleted || (objectLocked || no_object) && slide_lock );
                 }
             },
 
@@ -182,7 +182,8 @@ define([
             },
 
             deactivateEditControls: function() {
-                $('#toolbar-edit, #toolbar-add, #toolbar-settings').addClass('disabled');
+                // $('#toolbar-edit, #toolbar-add, #toolbar-settings').addClass('disabled');
+                $('#toolbar-add, #toolbar-settings').addClass('disabled');
             },
 
             onCoAuthoringDisconnect: function() {

@@ -31,9 +31,9 @@
             <a href="#" id="toolbar-preview" class="link icon-only">
                 <i class="icon icon-play"></i>
             </a>
-            <a href="#" id="toolbar-edit" class="link icon-only" style="display: none;">
+            <!-- <a href="#" id="toolbar-edit" class="link icon-only" style="display: none;">
                 <i class="icon icon-edit"></i>
-            </a>
+            </a> -->
             <a href="#" id="toolbar-add" class="link icon-only" style="display: none;">
                 <i class="icon icon-plus"></i>
             </a>

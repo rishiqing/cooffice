@@ -120,7 +120,7 @@ define([
 
             initEvents: function () {
             },
-
+            
             rootView : function() {
                 return rootView;
             },

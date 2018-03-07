@@ -52,6 +52,8 @@ define([
             inProgress,
             infoObj,
             modalView,
+            _shareUrl,
+            _deleteUrl,
             _licInfo;
 
         return {
@@ -63,7 +65,7 @@ define([
 
             initialize: function () {
                 Common.NotificationCenter.on('settingscontainer:show', _.bind(this.initEvents, this));
-
+                Common.Gateway.on('init', _.bind(this.loadConfig, this));
                 this.addListeners({
                     'Settings': {
                         'page:show' : this.onPageShow
@@ -91,6 +93,25 @@ define([
             },
 
             initEvents: function () {
+            },
+            loadConfig: function (data) {
+                if (data && data.config && data.config.customization && data.config.customization.share && data.config.customization.share.url) {
+                    _shareUrl = data.config.customization.share.url;
+
+                    $('#settings-document-share').single('click', _.bind(this.onShare, this));
+                }
+
+                if (data && data.config &&  data.config.canDelete && data.config.customization && data.config.customization.delete && data.config.customization.delete.url) {
+                    _deleteUrl = data.config.customization.delete.url;
+
+                    $('#settings-document-delete').single('click', _.bind(this.onDelete, this));
+                }
+            },
+            onShare: function () {
+                window.parent.location.href = _shareUrl;
+            },
+            onDelete: function () {
+                window.parent.location.href = _deleteUrl;
             },
 
             rootView : function() {
