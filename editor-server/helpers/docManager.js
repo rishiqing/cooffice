@@ -144,7 +144,7 @@ docManager.getFileData = function (fileName, userAddress) {
 
 docManager.getFileUri = function (userid, fileName, mode) {
     // return docManager.getlocalFileUri(fileName, 0, true);
-    return configServer.get("baseUrl") + "/onlyOffice/getFileUrl?" + "userId=" + userid + "&mode=" + mode + "&fileName=" + fileName;
+    return configServer.get("baseUrl") + "/v1/onlyOffice/getFileUrl?" + "userId=" + userid + "&mode=" + mode + "&fileName=" + fileName;
 };
 
 docManager.getlocalFileUri = function (fileName, version, forDocumentServer) {
@@ -168,7 +168,7 @@ docManager.getCallback = function (userid, fileName) {
     // const handler = "/track?filename=" + encodeURIComponent(fileName) + "&useraddress=" + encodeURIComponent(hostAddress);
 
     // return server + handler;
-    return configServer.get("baseUrl") + "/onlyOffice/callbackDeal?" + "userId=" + userid + "&fileName=" + fileName;
+    return configServer.get("baseUrl") + "/v1/onlyOffice/callbackDeal?" + "userId=" + userid + "&fileName=" + fileName;
 };
 
 docManager.storagePath = function (fileName, userAddress) {

@@ -13,7 +13,7 @@
   "server": {
     "port": 3000,
     "siteUrl": "http://192.168.0.134/",
-    "baseUrl": "https://beta.rishiqing.com/task",
+    "baseUrl": "http://b.beta-test.rishiqing.com/task",
     // "baseUrl": "http://192.168.0.167:8080/task",
     "commandUrl": "coauthoring/CommandService.ashx",
     "converterUrl": "ConvertService.ashx",
