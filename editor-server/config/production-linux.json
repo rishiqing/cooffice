@@ -1,7 +1,7 @@
 {
   "server": {
     "siteUrl": "https://www.rishiqing.com/",
-    "baseUrl": "https://www.rishiqing.com/task/",
+    "baseUrl": "https://www.rishiqing.com/task",
     "maxFileSize": 104857600,
     "static":[
       {
