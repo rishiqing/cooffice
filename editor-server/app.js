@@ -506,7 +506,7 @@ app.get("/editor", function (req, res) {
         var lang = docManager.getLang();
         var userid = req.query.userid ? req.query.userid : "uid-1";
         var name = req.query.name ? req.query.name : "Jonn Smith";
-        var isBackNewVersion = req.query.isBackNewVersion;
+        var isBackNewVersion = req.query.isBackNewVersion || false;
         if (fileExt != null) {
             var fileName = docManager.createDemo((req.query.sample ? "sample." : "new.") + fileExt, userid, name);
 
