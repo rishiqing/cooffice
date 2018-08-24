@@ -506,6 +506,7 @@ app.get("/editor", function (req, res) {
         var lang = docManager.getLang();
         var userid = req.query.userid ? req.query.userid : "uid-1";
         var name = req.query.name ? req.query.name : "Jonn Smith";
+        var isBackNewVersion = req.query.isBackNewVersion;
         if (fileExt != null) {
             var fileName = docManager.createDemo((req.query.sample ? "sample." : "new.") + fileExt, userid, name);
 
@@ -521,7 +522,7 @@ app.get("/editor", function (req, res) {
         // var key = docManager.getKey(userid);
         var key = req.query.key || new Date().getTime();
         var mode = req.query.mode || "view"; //mode: view/edit/review/comment/embedded
-        var url = docManager.getFileUri(userid, fileName, mode);
+        var url = docManager.getFileUri(userid, fileName, mode, isBackNewVersion);
         var type = req.query.type == "desktop" ? "desktop" : "mobile"; //type: embedded/mobile/desktop
         if (type == "") {
                 type = new RegExp(configServer.get("mobileRegEx"), "i").test(req.get('User-Agent')) ? "mobile" : "desktop";
@@ -598,7 +599,7 @@ app.get("/editor", function (req, res) {
                 documentType: fileUtility.getFileType(fileName),
                 key: key,
                 token: "",
-                callbackUrl: docManager.getCallback(userid, fileName),
+                callbackUrl: docManager.getCallback(userid, fileName, isBackNewVersion),
                 isEdit: canEdit && mode == "edit",
                 canDelete: type == "mobile" && canDelete,
                 review: mode == "edit" || mode == "review",
