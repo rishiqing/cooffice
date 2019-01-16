@@ -524,6 +524,7 @@ app.get("/editor", function (req, res) {
         var mode = req.query.mode || "view"; //mode: view/edit/review/comment/embedded
         var url = docManager.getFileUri(userid, fileName, mode, isBackNewVersion);
         var type = req.query.type == "desktop" ? "desktop" : "mobile"; //type: embedded/mobile/desktop
+        var isRemoveNavbar = req.query.isRemoveNavbar || false;
         if (type == "") {
                 type = new RegExp(configServer.get("mobileRegEx"), "i").test(req.get('User-Agent')) ? "mobile" : "desktop";
             }
@@ -602,6 +603,7 @@ app.get("/editor", function (req, res) {
                 callbackUrl: docManager.getCallback(userid, fileName, isBackNewVersion),
                 isEdit: canEdit && mode == "edit",
                 canDelete: type == "mobile" && canDelete,
+                isRemoveNavbar: isRemoveNavbar,
                 review: mode == "edit" || mode == "review",
                 comment: mode != "view" && mode != "embedded",
                 mode: mode,
