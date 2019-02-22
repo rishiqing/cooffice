@@ -657,6 +657,7 @@ define([
                 me.appOptions.canEditStyles   = me.appOptions.canLicense && me.appOptions.canEdit;
                 me.appOptions.canPrint        = (me.permissions.print !== false);
                 me.appOptions.canDelete       = me.permissions.delete;
+                me.appOptions.isRemoveNavbar  = me.permissions.isRemoveNavbar;
 
                 var type = /^(?:(pdf|djvu|xps))$/.exec(me.document.fileType);
                 me.appOptions.canDownloadOrigin = !me.appOptions.nativeApp && me.permissions.download !== false && (type && typeof type[1] === 'string');

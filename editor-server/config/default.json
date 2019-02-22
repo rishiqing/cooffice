@@ -12,8 +12,8 @@
   },
   "server": {
     "port": 3000,
-    "siteUrl": "http://b.beta-test.rishiqing.com/",
-    "baseUrl": "http://b.beta-test.rishiqing.com/task",
+    "siteUrl": "https://beta.rishiqing.com/",
+    "baseUrl": "https://beta.rishiqing.com/task",
     "commandUrl": "coauthoring/CommandService.ashx",
     "converterUrl": "ConvertService.ashx",
     "tempStorageUrl": "ResourceService.ashx",

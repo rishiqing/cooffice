@@ -103,6 +103,12 @@ define([
                 if (mode.isEdit) {
                     $('#toolbar-edit, #toolbar-add, #toolbar-undo, #toolbar-redo').show();
                 }
+                if (mode.isRemoveNavbar) {
+                    $('.view-main .navbar').addClass('navbar-hidden');
+                    $('#editor_sdk').css({
+                        top     : 0
+                    })
+                }
             },
 
             onDisplayMainNavbar: function (e) {

@@ -647,6 +647,7 @@ define([
                 me.appOptions.canDownload    = !me.appOptions.nativeApp && (me.permissions.download !== false);
                 me.appOptions.canPrint       = (me.permissions.print !== false);
                 me.appOptions.canDelete      = me.permissions.delete;
+                me.appOptions.isRemoveNavbar = me.permissions.isRemoveNavbar;
 
                 me.applyModeCommonElements();
                 me.applyModeEditorElements();
